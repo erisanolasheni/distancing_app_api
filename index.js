@@ -107,7 +107,7 @@ app.post('/upload/:user_id', [upload.single('avatar')], (req, res) => {
     }
 })
 
-app.post('/', [body('fullname').custom(value => /[a-z]+\s+?[a-z]+/i.test(value))
+app.post('/', [body('fullname').custom(value => /[a-z]+\s+?[a-z]+?/i.test(value))
     .withMessage('Please provide a valid fullname'), body('user_id').isAlphanumeric(), body('email').isEmail(), body('country').isAlphanumeric()
 ], (req, res) => {
     const details = req.body
@@ -124,7 +124,6 @@ app.post('/', [body('fullname').custom(value => /[a-z]+\s+?[a-z]+/i.test(value))
     users_controller.createUser(details, (err, result) => {
         console.log(err, result, 'err');
 
-        console.log(req.files.avatar)
         if (err) res.status(400).send({
             status: 'error',
             details: err
