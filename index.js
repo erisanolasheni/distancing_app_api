@@ -86,7 +86,6 @@ app.post('/upload/:user_id', [upload.single('avatar')], (req, res) => {
                 details: 'User not found'
             });
             else {
-                // update user avatars
                 users_controller.updateUser(user_id, {
                     avatar: file.filename
                 }, (err, result) => {
@@ -96,6 +95,10 @@ app.post('/upload/:user_id', [upload.single('avatar')], (req, res) => {
                             details: 'Error occurred during upload'
                         });
                     } else {
+                        // update user avatars
+                        if (result.avatar) {
+                            fs.unlinkSync(`./uploads/${result.avatar}`);
+                        }
                         res.send({
                             status: 'success',
                             details: 'Upload success'
