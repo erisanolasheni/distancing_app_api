@@ -34,9 +34,7 @@ app.use(express.json({
     extended: true
 }))
 
-const {
-    PORT
-} = process.env
+const PORT = 9000
 
 const users_controller = require('./controllers/users');
 
