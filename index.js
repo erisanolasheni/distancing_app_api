@@ -39,11 +39,11 @@ const PORT = 9000
 const users_controller = require('./controllers/users');
 
 
-// app.get('/', (req, res) => {
-//     users_controller.getAllUser((err, result) => {
-//         res.send(result);
-//     });
-// });
+app.get('/users', (req, res) => {
+    users_controller.getAllUser((err, result) => {
+        res.send(result);
+    });
+});
 
 
 app.get('/:id', (req, res) => {
