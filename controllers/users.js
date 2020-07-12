@@ -50,7 +50,7 @@ exports.updateUser = (user_id, details, callback) => {
             }
             c.User.findOneAndUpdate({
                 user_id
-            }, details, (err, res) => {
+            }, details, {new: true}, (err, res) => {
 
                 console.log(err)
                 console.log(details)
