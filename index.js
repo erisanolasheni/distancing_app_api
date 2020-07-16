@@ -111,7 +111,8 @@ app.post('/upload/:user_id', [upload.single('avatar')], (req, res) => {
 })
 
 app.post('/', [body('fullname').custom(value => /[a-z]+\s*[a-z]+?/i.test(value))
-    .withMessage('Please provide a valid fullname'), body('user_id').isAlphanumeric(), body('email').isEmail(), body('country').isAlphanumeric()
+    .withMessage('Please provide a valid fullname'), body('user_id').isAlphanumeric(), body('email').isEmail(), body('country').custom(value => /[a-z]+\s*[a-z]+?/i.test(value))
+    .withMessage('Please provide a valid country')
 ], (req, res) => {
     const details = req.body
 
