@@ -15,7 +15,8 @@ const storage = multer.diskStorage({
         cb(null, 'uploads')
     },
     filename: function (req, file, cb) {
-        cb(null, file.fieldname + '-' + Date.now() + '.' + file.mimetype.split('/')[1])
+        let file_name = file.originalname
+        cb(null, Date.now() + file_name);
     }
 })
 
@@ -67,7 +68,7 @@ app.get('/:id', (req, res) => {
     })
 });
 
-app.post('/upload/:user_id', [upload.single('avatar')], (req, res) => {
+app.post('/upload/:user_id', [upload.single('avatar'), body('avatar').custom((value, filename) => /\.[jpg|png|gif|jpeg]+$/i.test(filename)).withMessage('Please upload a valid picture.')], (req, res) => {
     const {
         user_id
     } = req.params
